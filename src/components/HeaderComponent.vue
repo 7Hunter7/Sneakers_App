@@ -9,15 +9,15 @@
     </div>
 
     <ul class="flex items-center gap-8">
-      <li class="flex items-center gap-3 text-gray-500">
+      <li class="flex items-center gap-2 text-gray-500 hover:text-gray-800 cursor-pointer">
         <img src="/cart.svg" alt="Cart">
         <b>Стоимость</b>
       </li>
-      <li class="flex items-center gap-3 text-gray-500">
+      <li class="flex items-center gap-2 text-gray-500 hover:text-black cursor-pointer">
         <img src="/heart.svg" alt="Favorites">
         <span>Закладки</span>
       </li>
-      <li class="flex items-center gap-3 text-gray-500">
+      <li class="flex items-center gap-2 text-gray-500 hover:text-black cursor-pointer">
         <img src="/profile.svg" alt="Profile">
         <span>Профиль</span>
       </li>
