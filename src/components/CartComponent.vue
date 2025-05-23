@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <div>
-      <img src="/like-2.svg" alt="Like">
-      <img src="/sneakers/sneakers-1.jpg" alt="Sneakers">
-      <h2>Мужские Кроссовки Nike Blazer Mid Suede</h2>
-      <div class="flex justify-between">
-        <div>
-          <span>Цена:</span>
-          <span>12 999 руб.</span>
-        </div>
-        <img src="/plus.svg" alt="Plus">
-
+  <div
+    class="relative m-10 p-8 border border-slate-100 rounded-3xl cursor-pointer hover:-translate-y-2 hover:shadow-xl transition">
+    <img src="/like-2.svg" alt="Like" class="absolute top-2 left-2">
+    <img src="/sneakers/sneakers-1.jpg" alt="Sneakers">
+    <h2 class="mt-2">Мужские Кроссовки Nike Blazer Mid Suede</h2>
+    <div class="flex justify-between mt-5">
+      <div class="flex flex-col">
+        <span class="text-slate-400 uppercase">Цена:</span>
+        <b>1205 руб.</b>
       </div>
+      <img src="/plus.svg" alt="Plus">
     </div>
   </div>
 </template>
