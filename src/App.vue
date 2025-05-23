@@ -1,4 +1,5 @@
 <script setup>
+import CartComponent from './components/CartComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 </script>
 
@@ -6,6 +7,7 @@ import HeaderComponent from './components/HeaderComponent.vue';
   <div class="bg-white w-4/5 m-auto h-screen rounded-xl shadow-xl mt-10">
     <h1 class="text-3xl text-center font-bold my-5">Best Sneakers</h1>
     <HeaderComponent />
+    <CartComponent />
   </div>
 </template>
 
