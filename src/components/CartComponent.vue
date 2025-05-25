@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative m-10 p-8 border border-slate-100 rounded-3xl cursor-pointer hover:-translate-y-2 hover:shadow-xl transition">
+    class="relative bg-white p-8 border border-slate-100 rounded-3xl cursor-pointer hover:-translate-y-2 hover:shadow-xl transition">
     <img src="/like-2.svg" alt="Like" class="absolute top-2 left-2">
     <img src="/sneakers/sneakers-1.jpg" alt="Sneakers">
     <h2 class="mt-2">Мужские Кроссовки Nike Blazer Mid Suede</h2>
