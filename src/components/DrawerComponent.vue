@@ -3,7 +3,7 @@
     <div class="fixed top-0 right-0 w-96 h-full bg-white z-20 p-8">
       <DrawerHead />
       <CartItemList />
-      <div class="mt-8 flex flex-col gap-4 my-7">
+      <div class="mt-8 flex flex-col gap-4">
         <div class="flex gap-2">
           <span>Итого:</span>
           <div class="flex-1 border-b border-dashed"></div>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <button
-        class="bg-lime-500 w-full rounded-xl py-3 mt-6 text-white cursor-pointer transition hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300">Оформить
+        class="bg-lime-500 w-full rounded-xl py-3 mt-4 text-white cursor-pointer transition hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300">Оформить
         заказ</button>
     </div>
 
