@@ -5,8 +5,8 @@ import HeaderComponent from './components/HeaderComponent.vue';
 
 <template>
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
-    <h1 class="text-3xl text-center font-bold my-5">Best Sneakers</h1>
     <HeaderComponent />
+    <h2 class="text-3xl text-left font-bold my-5 px-8">Все кроссовки</h2>
     <CartComponent />
     <CartComponent />
     <CartComponent />
