@@ -1,12 +1,20 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 const items = ref([]);
+const sortBy = ref('');
+const searchQuery = ref('');
 
+// Функция для обработки изменения сортировки
+const onChangeSelect = (event) => {
+  sortBy.value = event.target.value;
+};
+
+// Загрузка данных при монтировании компонента
 onMounted(async () => {
   try {
     const { data } = await axios.get('https://7c1179b9d2e1c831.mokky.dev/items');
@@ -15,6 +23,16 @@ onMounted(async () => {
     console.error('Error fetching data:', error);
   }
 })
+
+// Слушаем изменения в sortBy и обновляем данные
+watch(sortBy, async () => {
+  try {
+    const { data } = await axios.get('https://7c1179b9d2e1c831.mokky.dev/items?sortBy=' + sortBy.value);
+    items.value = data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
 </script>
 
 <template>
@@ -26,14 +44,12 @@ onMounted(async () => {
       <div class="flex justify-between items-center mb-8">
         <h2 class="text-3xl font-bold">Все кроссовки</h2>
         <div class="flex items-center gap-4">
-          <select class="border border-gray-200 rounded-lg py-2 px-3 w-40 outline-none focus:border-lime-400"
-            name="filter" id="">
-            <option value="all">Все</option>
-            <option value="new">Новинки</option>
-            <option value="popular">Популярные</option>
-            <option value="sale">Распродажа</option>
-            <option value="cheap">Дешевые</option>
-            <option value="expensive">Дорогие</option>
+          <select @change="onChangeSelect"
+            class="border border-gray-200 rounded-lg py-2 px-3 w-40 outline-none focus:border-lime-400" name="filter"
+            id="">
+            <option value="name">По названию</option>
+            <option value="-price">По цене(сначала дешевые)</option>
+            <option value="price">По цене(сначала дорогие)</option>
           </select>
           <div class="relative">
             <img class="absolute top-2.5 left-3" src="/search.svg" alt="Поиск">
