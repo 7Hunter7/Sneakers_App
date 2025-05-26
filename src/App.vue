@@ -1,5 +1,5 @@
 <script setup>
-import CartList from './components/CartList.vue';
+import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 </script>
@@ -29,7 +29,7 @@ import HeaderComponent from './components/HeaderComponent.vue';
           </div>
         </div>
       </div>
-      <CartList />
+      <CardList />
     </div>
   </div>
 </template>
