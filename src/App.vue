@@ -17,25 +17,29 @@ const onChangeSelect = (event) => {
   filters.sortBy = event.target.value;
 };
 
-// Загрузка данных при монтировании компонента
-onMounted(async () => {
+// Функция для получения данных с сервера
+const fetchItems = async () => {
   try {
-    const { data } = await axios.get('https://7c1179b9d2e1c831.mokky.dev/items');
-    items.value = data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-})
+    const params = {
+      sortBy: filters.sortBy,
+      searchQuery: filters.searchQuery
+    };
 
-// Слушаем изменения в sortBy и обновляем данные
-watch(filters, async () => {
-  try {
-    const { data } = await axios.get('https://7c1179b9d2e1c831.mokky.dev/items?sortBy=' + filters.sortBy);
+    const { data } = await axios.get(
+      `https://7c1179b9d2e1c831.mokky.dev/items?title=*${filters.searchQuery}*&sort=${filters.sortBy}`,
+    );
+
     items.value = data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
-});
+}
+
+// Загрузка данных при монтировании компонента
+onMounted(fetchItems);
+// Реактивное отслеживание изменений в фильтрах
+watch(filters, fetchItems);
+
 </script>
 
 <template>
