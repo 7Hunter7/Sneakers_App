@@ -1,17 +1,20 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 const items = ref([]);
-const sortBy = ref('');
-const searchQuery = ref('');
+
+const filters = reactive({
+  sortBy: '',
+  searchQuery: ''
+});
 
 // Функция для обработки изменения сортировки
 const onChangeSelect = (event) => {
-  sortBy.value = event.target.value;
+  filters.sortBy = event.target.value;
 };
 
 // Загрузка данных при монтировании компонента
@@ -25,9 +28,9 @@ onMounted(async () => {
 })
 
 // Слушаем изменения в sortBy и обновляем данные
-watch(sortBy, async () => {
+watch(filters, async () => {
   try {
-    const { data } = await axios.get('https://7c1179b9d2e1c831.mokky.dev/items?sortBy=' + sortBy.value);
+    const { data } = await axios.get('https://7c1179b9d2e1c831.mokky.dev/items?sortBy=' + filters.sortBy);
     items.value = data;
   } catch (error) {
     console.error('Error fetching data:', error);
