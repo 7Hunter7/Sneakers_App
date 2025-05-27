@@ -1,8 +1,8 @@
 <template>
   <div class="grid grid-cols-4 gap-5">
     <CardComponent v-for="item in items" :key="item.id" :id="item.id" :imageUrl="item.imageUrl" :title="item.title"
-      :price="item.price" :isFavorite="item.isFavorite" :isAdded="item.isAdded" :onClickAdd="onClickAdd"
-      :onClickFavorite="() => emit('addToFavorite', item)" />
+      :price="item.price" :isFavorite="item.isFavorite" :isAdded="item.isAdded"
+      :onClickAdd="() => emit('addToCart', item)" :onClickFavorite="() => emit('addToFavorite', item)" />
   </div>
 </template>
 
@@ -13,13 +13,5 @@ defineProps({
   items: Array
 });
 
-const emit = defineEmits(['addToFavorite']);
-
-const onClickAdd = () => {
-  console.log('Add to cart');
-};
-
-const onClickFavorite = () => {
-  console.log('Add to favorites');
-};
+const emit = defineEmits(['addToFavorite', 'addToCart']);
 </script>
