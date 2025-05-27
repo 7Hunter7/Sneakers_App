@@ -111,14 +111,17 @@ const addToFavorite = async (item) => {
 
 // Функция для добавления и удаления товара из корзины
 const addToCart = async (item) => {
-  const cartItem = cartItems.value.find((cartItem) => cartItem.id === item.id);
-  if (!cartItem) {
-    cartItems.value.push({ ...item, quantity: 1 });
+  if (!item.isAdded) {
+    cartItems.value.push(item);
+    item.isAdded = true;
   } else {
-    cartItems.value = cartItems.value.filter((cartItem) => cartItem.id !== item.id);
+    cartItems.value.splice(
+      cartItems.value.indexOf(item),
+      1
+    );
+    item.isAdded = false;
   }
 };
-
 // Загрузка данных при монтировании компонента
 onMounted(async () => {
   await fetchItems();
