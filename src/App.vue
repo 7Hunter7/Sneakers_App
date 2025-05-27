@@ -123,7 +123,7 @@ provide('cartActions', {
 <template>
   <DrawerComponent v-if="drawerOpen" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
-    <HeaderComponent />
+    <HeaderComponent @open-drawer="openDrawer" />
 
     <div class="p-10">
       <div class="flex justify-between items-center mb-8">
@@ -144,7 +144,7 @@ provide('cartActions', {
           </div>
         </div>
       </div>
-      <CardList :items="items" @addToFavorite="addToFavorite" />
+      <CardList :items="items" @add-to-favorite="addToFavorite" />
     </div>
   </div>
 </template>
