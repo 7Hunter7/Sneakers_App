@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center gap-4 bg-white p-4 border border-slate-200 rounded-xl">
     <img class="w-16 h-16" :src="imageUrl" :alt="`Image of ${title}`" />
-    <div class="flex flex-col">
+    <div class="flex flex-col flex-1">
       <p>{{ title }}</p>
       <div class="flex justify-between mt-2">
-        <b>1{{ price }} руб.</b>
+        <b class="flex-1">{{ price }} руб.</b>
         <svg class="cursor-pointer transition opacity-40  hover:opacity-100" width="32" height="32" viewBox="0 0 32 32"
           fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
