@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, provide, reactive, ref, watch, provide } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
@@ -41,6 +41,7 @@ const fetchItems = async () => {
       ...item,
       isAdded: false,
       isFavorite: false,
+      favoriteId: null
     }));
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -69,9 +70,29 @@ const fetchFavoriteItems = async () => {
   }
 };
 
-// Функция для добавления товара в избранное
+// Функция для добавления и удаления товара из избранного
 const addToFavorite = async (item) => {
-  item.isFavorite = true;
+  try {
+    if (!item.isFavorite) {
+      const obj = {
+        productId: item.id,
+      };
+      const { data } = await axios.post(
+        `https://7c1179b9d2e1c831.mokky.dev/favorites`,
+        obj
+      );
+      item.isFavorite = true;
+      item.favoriteId = data.id;
+    } else {
+      await axios.delete(
+        `https://7c1179b9d2e1c831.mokky.dev/favorites/${item.favoriteId}`
+      );
+      item.isFavorite = false;
+      item.favoriteId = null;
+    }
+  } catch (error) {
+    console.error('Error adding to favorites:', error);
+  }
 };
 
 // Загрузка данных при монтировании компонента
