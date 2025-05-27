@@ -37,14 +37,46 @@ const fetchItems = async () => {
       `https://7c1179b9d2e1c831.mokky.dev/items`,
       { params }
     );
-    items.value = data;
+    items.value = data.map((item) => ({
+      ...item,
+      isAdded: false,
+      isFavorite: false,
+    }));
   } catch (error) {
     console.error('Error fetching data:', error);
   }
-}
+};
+
+// Функция для получения избранных товаров с сервера
+const fetchFavoriteItems = async () => {
+  try {
+    const { data: favorites } = await axios.get(
+      `https://7c1179b9d2e1c831.mokky.dev/favorites`,
+    );
+    items.value = items.value.map((item) => {
+      const favorite = favorites.find((fav) => fav.productId === item.id);
+      if (!favorite) {
+        return {
+          ...item,
+          isFavorite: true,
+        };
+      }
+      return {
+        ...item,
+        isFavorite: true,
+        favoriteId: favorite.id,
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
 // Загрузка данных при монтировании компонента
-onMounted(fetchItems);
+onMounted(async () => {
+  await fetchItems();
+  await fetchFavoriteItems();
+});
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
 
