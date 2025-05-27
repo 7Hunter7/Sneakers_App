@@ -56,10 +56,7 @@ const fetchFavoriteItems = async () => {
     items.value = items.value.map((item) => {
       const favorite = favorites.find((fav) => fav.productId === item.id);
       if (!favorite) {
-        return {
-          ...item,
-          isFavorite: true,
-        };
+        return item;
       }
       return {
         ...item,
