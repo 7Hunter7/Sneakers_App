@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, provide, reactive, ref, watch } from 'vue';
 import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
@@ -113,6 +113,11 @@ onMounted(async () => {
 });
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
+
+provide('cartActions', {
+  openDrawer,
+  closeDrawer
+});
 </script>
 
 <template>
