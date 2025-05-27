@@ -81,8 +81,6 @@ onMounted(async () => {
 });
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
-
-provide('addToFavorite', addToFavorite);
 </script>
 
 <template>
@@ -109,7 +107,7 @@ provide('addToFavorite', addToFavorite);
           </div>
         </div>
       </div>
-      <CardList :items="items" />
+      <CardList :items="items" @addToFavorite="addToFavorite" />
     </div>
   </div>
 </template>

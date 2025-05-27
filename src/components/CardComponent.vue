@@ -17,8 +17,6 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-
 const props = defineProps({
   id: Number,
   imageUrl: String,
@@ -30,12 +28,4 @@ const props = defineProps({
   onClickFavorite: Function
 });
 
-const addToFavorite = inject('addToFavorite');
-
-const onClickFavorite = () => {
-  const obj = {
-    productId: props.id,
-  };
-  addToFavorite(obj);
-};
 </script>
