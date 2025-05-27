@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col gap-4">
-    <CartItem v-for="item in cartItems" :key="item.id" :item="item" />
+    <CartItem v-for="item in cartItems" :key="item.id" :title="item.title" :imageUrl="item.imageUrl"
+      :price="item.price" />
   </div>
 </template>
 
