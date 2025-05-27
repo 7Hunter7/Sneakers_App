@@ -6,6 +6,17 @@ import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 const items = ref([]);
+const drawerOpen = ref(false);
+
+// Функция открытия Карзины (Drawer)
+const openDrawer = () => {
+  drawerOpen.value = true;
+};
+
+// Функция закрытия Карзины (Drawer)
+const closeDrawer = () => {
+  drawerOpen.value = false;
+};
 
 const filters = reactive({
   sortBy: 'title',
@@ -105,7 +116,7 @@ watch(filters, fetchItems);
 </script>
 
 <template>
-  <!-- <DrawerComponent /> -->
+  <DrawerComponent v-if="drawerOpen" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
     <HeaderComponent />
 
