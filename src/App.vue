@@ -130,7 +130,7 @@ onMounted(async () => {
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
 
-provide('cartActions', {
+provide('cart', {
   openDrawer,
   closeDrawer
 });
