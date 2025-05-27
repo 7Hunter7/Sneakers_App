@@ -131,6 +131,7 @@ onMounted(async () => {
 watch(filters, fetchItems);
 
 provide('cart', {
+  cartItems,
   openDrawer,
   closeDrawer
 });
