@@ -77,17 +77,17 @@ const addToFavorite = async (item) => {
       const obj = {
         productId: item.id,
       };
+      item.isFavorite = true;
       const { data } = await axios.post(
         `https://7c1179b9d2e1c831.mokky.dev/favorites`,
         obj
       );
-      item.isFavorite = true;
       item.favoriteId = data.id;
     } else {
+      item.isFavorite = false;
       await axios.delete(
         `https://7c1179b9d2e1c831.mokky.dev/favorites/${item.favoriteId}`
       );
-      item.isFavorite = false;
       item.favoriteId = null;
     }
   } catch (error) {
