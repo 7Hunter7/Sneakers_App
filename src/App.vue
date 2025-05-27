@@ -6,6 +6,9 @@ import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 const items = ref([]);
+const cartItems = ref([]);
+
+
 const drawerOpen = ref(false);
 
 // Функция открытия Карзины (Drawer)
@@ -106,6 +109,16 @@ const addToFavorite = async (item) => {
   }
 };
 
+// Функция для добавления и удаления товара из корзины
+const addToCart = async (item) => {
+  const cartItem = cartItems.value.find((cartItem) => cartItem.id === item.id);
+  if (!cartItem) {
+    cartItems.value.push({ ...item, quantity: 1 });
+  } else {
+    cartItems.value = cartItems.value.filter((cartItem) => cartItem.id !== item.id);
+  }
+};
+
 // Загрузка данных при монтировании компонента
 onMounted(async () => {
   await fetchItems();
@@ -144,7 +157,7 @@ provide('cartActions', {
           </div>
         </div>
       </div>
-      <CardList :items="items" @add-to-favorite="addToFavorite" />
+      <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="addToCart" />
     </div>
   </div>
 </template>
