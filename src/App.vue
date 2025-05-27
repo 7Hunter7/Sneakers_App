@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, provide, reactive, ref, watch, provide } from 'vue';
 import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
@@ -69,6 +69,11 @@ const fetchFavoriteItems = async () => {
   }
 };
 
+// Функция для добавления товара в избранное
+const addToFavorite = async (item) => {
+  item.isFavorite = true;
+};
+
 // Загрузка данных при монтировании компонента
 onMounted(async () => {
   await fetchItems();
@@ -77,6 +82,7 @@ onMounted(async () => {
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
 
+provide('addToFavorite', addToFavorite);
 </script>
 
 <template>
