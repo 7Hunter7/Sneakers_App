@@ -1,15 +1,17 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, provide, reactive, ref, watch } from 'vue';
+import { computed, onMounted, provide, reactive, ref, watch } from 'vue';
 import CardList from './components/CardList.vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 const items = ref([]);
 const cartItems = ref([]);
-
-
 const drawerOpen = ref(false);
+
+const totalPrice = computed(
+  () => cartItems.value.reduce((acc, item) => acc + item.price, 0)
+);
 
 // Функция открытия Карзины (Drawer)
 const openDrawer = () => {
@@ -148,7 +150,7 @@ provide('cart', {
 <template>
   <DrawerComponent v-if="drawerOpen" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
-    <HeaderComponent @open-drawer="openDrawer" />
+    <HeaderComponent @open-drawer="openDrawer" :total-price="totalPrice" />
 
     <div class="p-10">
       <div class="flex justify-between items-center mb-8">
