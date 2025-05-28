@@ -15,7 +15,7 @@
           <b>{{ vatPrice }} руб.</b>
         </div>
       </div>
-      <button
+      <button :disabled="totalPrice ? false : true" @click="emit('createOrder')"
         class="bg-lime-500 w-full rounded-xl py-3 mt-4 text-white cursor-pointer transition hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300">Оформить
         заказ</button>
     </div>
@@ -37,4 +37,6 @@ defineProps({
     default: 0
   }
 });
+
+const emit = defineEmits(['createOrder']);
 </script>
