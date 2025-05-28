@@ -137,9 +137,8 @@ const onClickAddPlus = async (item) => {
 const createOrder = async () => {
   try {
     const { data } = await axios.post(`https://7c1179b9d2e1c831.mokky.dev/orders`, {
-      items: cartItems,
+      items: cartItems.value,
       totalPrice: totalPrice.value,
-      vatPrice: vatPrice.value
     });
     // Очистка корзины после успешного создания заказа
     cartItems.value = [];
