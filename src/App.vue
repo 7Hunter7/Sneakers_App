@@ -12,6 +12,9 @@ const drawerOpen = ref(false);
 const totalPrice = computed(
   () => cartItems.value.reduce((acc, item) => acc + item.price, 0)
 );
+const vatPrice = computed(
+  () => Math.round(totalPrice.value * 0.05) // 5% НДС
+);
 
 // Функция открытия Карзины (Drawer)
 const openDrawer = () => {
@@ -148,7 +151,7 @@ provide('cart', {
 </script>
 
 <template>
-  <DrawerComponent v-if="drawerOpen" />
+  <DrawerComponent v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
     <HeaderComponent @open-drawer="openDrawer" :total-price="totalPrice" />
 
