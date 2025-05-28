@@ -8,6 +8,7 @@ import HeaderComponent from './components/HeaderComponent.vue';
 const items = ref([]);
 const cartItems = ref([]);
 const drawerOpen = ref(false);
+const isCreatingOrder = ref(false);
 
 const totalPrice = computed(
   () => cartItems.value.reduce((acc, item) => acc + item.price, 0)
@@ -136,6 +137,7 @@ const onClickAddPlus = async (item) => {
 // Функция для создания заказа
 const createOrder = async () => {
   try {
+    isCreatingOrder.value = true;
     const { data } = await axios.post(`https://7c1179b9d2e1c831.mokky.dev/orders`, {
       items: cartItems.value,
       totalPrice: totalPrice.value,
@@ -146,6 +148,8 @@ const createOrder = async () => {
     return data;
   } catch (error) {
     console.error('Error creating order:', error);
+  } finally {
+    isCreatingOrder.value = false;
   }
 };
 
@@ -167,7 +171,8 @@ provide('cart', {
 </script>
 
 <template>
-  <DrawerComponent v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" @create-order="createOrder" />
+  <DrawerComponent v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" @create-order="createOrder"
+    :is-creating-order="isCreatingOrder" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
     <HeaderComponent @open-drawer="openDrawer" :total-price="totalPrice" />
 
