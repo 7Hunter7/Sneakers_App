@@ -109,19 +109,25 @@ const addToFavorite = async (item) => {
   }
 };
 
-// Функция для добавления и удаления товара из корзины
 const addToCart = async (item) => {
+  cartItems.value.push(item);
+  item.isAdded = true;
+};
+
+const removeFromCart = async (item) => {
+  cartItems.value.splice(cartItems.value.indexOf(item), 1);
+  item.isAdded = false;
+};
+
+// Функция для добавления и удаления товара из корзины
+const onClickAddPlus = async (item) => {
   if (!item.isAdded) {
-    cartItems.value.push(item);
-    item.isAdded = true;
+    addToCart(item);
   } else {
-    cartItems.value.splice(
-      cartItems.value.indexOf(item),
-      1
-    );
-    item.isAdded = false;
+    removeFromCart(item);
   }
 };
+
 // Загрузка данных при монтировании компонента
 onMounted(async () => {
   await fetchItems();
@@ -133,7 +139,9 @@ watch(filters, fetchItems);
 provide('cart', {
   cartItems,
   openDrawer,
-  closeDrawer
+  closeDrawer,
+  addToCart,
+  removeFromCart
 });
 </script>
 
@@ -161,7 +169,7 @@ provide('cart', {
           </div>
         </div>
       </div>
-      <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="addToCart" />
+      <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="onClickAddPlus" />
     </div>
   </div>
 </template>
