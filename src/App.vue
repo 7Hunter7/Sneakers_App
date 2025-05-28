@@ -133,6 +133,23 @@ const onClickAddPlus = async (item) => {
   }
 };
 
+// Функция для создания заказа
+const createOrder = async () => {
+  try {
+    const { data } = await axios.post(`https://7c1179b9d2e1c831.mokky.dev/orders`, {
+      items: cartItems,
+      totalPrice: totalPrice.value,
+      vatPrice: vatPrice.value
+    });
+    // Очистка корзины после успешного создания заказа
+    cartItems.value = [];
+
+    return data;
+  } catch (error) {
+    console.error('Error creating order:', error);
+  }
+};
+
 // Загрузка данных при монтировании компонента
 onMounted(async () => {
   await fetchItems();
@@ -151,7 +168,7 @@ provide('cart', {
 </script>
 
 <template>
-  <DrawerComponent v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" />
+  <DrawerComponent v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" @create-order="createOrder" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
     <HeaderComponent @open-drawer="openDrawer" :total-price="totalPrice" />
 
