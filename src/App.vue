@@ -155,8 +155,19 @@ const createOrder = async () => {
 
 // Загрузка данных при монтировании компонента
 onMounted(async () => {
+  // Проверка наличия корзины в localStorage
+  const savedCart = localStorage.getItem('cart');
+  if (savedCart) {
+    cartItems.value = JSON.parse(savedCart);
+  }
+  // Загрузка товаров и избранных товаров
   await fetchItems();
   await fetchFavoriteItems();
+  // Установка флага isAdded для каждого товара в зависимости от наличия в корзине
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: cartItems.value.some(cartItem => cartItem.id === item.id),
+  }));
 });
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
@@ -168,6 +179,14 @@ watch(cartItems, () => {
     isAdded: false,
   }));
 })
+
+// Сохранение корзины в localStorage при изменении
+watch(cartItems, () => {
+  localStorage.setItem('cart', JSON.stringify(cartItems.value));
+}, {
+  deep: true
+});
+
 
 provide('cart', {
   cartItems,
