@@ -3,7 +3,6 @@ import axios from 'axios';
 import { computed, provide, ref, watch } from 'vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
-import HomePage from './pages/HomePage.vue';
 
 const cartItems = ref([]);
 const drawerOpen = ref(false);
@@ -78,9 +77,9 @@ provide('cart', {
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
     <HeaderComponent @open-drawer="openDrawer" :total-price="totalPrice" />
 
-    <div class="p-10">
-      <HomePage />
-    </div>
+    <main class="p-10">
+      <RouterView />
+    </main>
   </div>
 </template>
 
