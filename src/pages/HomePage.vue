@@ -21,6 +21,7 @@
 
 <script setup>
 import axios from 'axios';
+import debounce from 'lodash.debounce';
 import { onMounted, ref, reactive, inject, watch } from "vue";
 import CardList from '../components/CardList.vue';
 
@@ -88,9 +89,9 @@ const onChangeSelect = (event) => {
 };
 
 // Функция для обработки изменения поиска
-const onChangeSearchInput = (event) => {
+const onChangeSearchInput = debounce((event) => {
   filters.searchQuery = event.target.value;
-};
+}, 400);
 
 // Функция для добавления и удаления товара из корзины
 const onClickAddPlus = async (item) => {
