@@ -2,8 +2,10 @@
   <div class="fixed top-0 left-0 w-full h-full bg-black/70 z-10">
     <div class="fixed top-0 right-0 w-96 h-full bg-white z-20 p-8">
       <DrawerHead />
-      <InfoBlock v-if="!totalPrice" title="Корзина пустая"
-        description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" imageUrl="package-icon.png" />
+      <div v-if="!totalPrice" class="flex items-center h-full">
+        <InfoBlock title="Корзина пустая" description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ"
+          imageUrl="package-icon.png" />
+      </div>
       <CartItemList />
       <div v-if="totalPrice" class="mt-8 flex flex-col gap-4">
         <div class="flex gap-2">
