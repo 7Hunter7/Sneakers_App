@@ -5,7 +5,7 @@
       <InfoBlock v-if="!totalPrice" title="Корзина пустая"
         description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" imageUrl="package-icon.png" />
       <CartItemList />
-      <div class="mt-8 flex flex-col gap-4">
+      <div v-if="totalPrice" class="mt-8 flex flex-col gap-4">
         <div class="flex gap-2">
           <span>Итого:</span>
           <div class="flex-1 border-b border-dashed"></div>
@@ -16,10 +16,10 @@
           <div class="flex-1 border-b border-dashed"></div>
           <b>{{ vatPrice }} руб.</b>
         </div>
+        <button :disabled="totalPrice ? false : true" @click="emit('createOrder')"
+          class="bg-lime-500 w-full rounded-xl py-3 mt-4 text-white cursor-pointer transition hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300">Оформить
+          заказ</button>
       </div>
-      <button :disabled="totalPrice ? false : true" @click="emit('createOrder')"
-        class="bg-lime-500 w-full rounded-xl py-3 mt-4 text-white cursor-pointer transition hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300">Оформить
-        заказ</button>
     </div>
 
   </div>
