@@ -161,6 +161,14 @@ onMounted(async () => {
 // Реактивное отслеживание изменений в фильтрах
 watch(filters, fetchItems);
 
+// Реактивное отслеживание изменений корзины
+watch(cartItems, () => {
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: false,
+  }));
+})
+
 provide('cart', {
   cartItems,
   openDrawer,
