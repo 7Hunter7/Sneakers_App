@@ -2,9 +2,12 @@
   <div class="fixed top-0 left-0 w-full h-full bg-black/70 z-10">
     <div class="fixed top-0 right-0 w-96 h-full bg-white z-20 p-8">
       <DrawerHead />
-      <div v-if="!totalPrice" class="flex items-center h-full">
-        <InfoBlock title="Корзина пустая" description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ"
-          imageUrl="package-icon.png" />
+      <div v-if="!totalPrice || orderId" class="flex items-center h-full">
+        <InfoBlock v-if="!totalPrice && !orderId" title="Корзина пустая"
+          description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" imageUrl="package-icon.png" />
+        <InfoBlock v-if="orderId" title="Заказ оформлен!"
+          :description="`Ваш заказ №${orderId} скоро будет передан курьерской доставке`"
+          imageUrl="order-success-icon.png" />
       </div>
       <CartItemList />
       <div v-if="totalPrice" class="mt-8 flex flex-col gap-4">
@@ -48,6 +51,7 @@ const props = defineProps({
 const { closeDrawer, cartItems } = inject('cart');
 
 const isCreating = ref(false);
+const orderId = ref(null);
 const cartIsEmpty = computed(() => cartItems.value.length === 0);
 const buttonDisabled = computed(() => isCreating.value || cartIsEmpty.value);
 
@@ -61,7 +65,7 @@ const createOrder = async () => {
     });
     // Очистка корзины после успешного создания заказа
     cartItems.value = [];
-
+    orderId.value = data.id;
     return data;
   } catch (error) {
     console.error('Error creating order:', error);
