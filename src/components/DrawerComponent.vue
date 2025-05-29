@@ -18,7 +18,7 @@
           <div class="flex-1 border-b border-dashed"></div>
           <b>{{ vatPrice }} руб.</b>
         </div>
-        <button :disabled="totalPrice ? false : true" @click="emit('createOrder')"
+        <button :disabled="buttonDisabled" @click="createOrder"
           class="bg-lime-500 w-full rounded-xl py-3 mt-4 text-white cursor-pointer transition hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300">Оформить
           заказ</button>
       </div>
@@ -28,11 +28,13 @@
 </template>
 
 <script setup>
+import axios from 'axios';
+import { computed, inject, ref } from 'vue';
 import DrawerHead from './DrawerHead.vue';
 import InfoBlock from './InfoBlock.vue';
 import CartItemList from './CartItemList.vue';
 
-defineProps({
+const props = defineProps({
   totalPrice: {
     type: Number,
     default: 0
@@ -43,5 +45,28 @@ defineProps({
   }
 });
 
-const emit = defineEmits(['createOrder']);
+const { closeDrawer, cartItems } = inject('cart');
+
+const isCreating = ref(false);
+const cartIsEmpty = computed(() => cartItems.value.length === 0);
+const buttonDisabled = computed(() => isCreating.value || cartIsEmpty.value);
+
+// Функция для создания заказа
+const createOrder = async () => {
+  try {
+    isCreating.value = true;
+    const { data } = await axios.post(`https://7c1179b9d2e1c831.mokky.dev/orders`, {
+      items: cartItems.value,
+      totalPrice: props.totalPrice,
+    });
+    // Очистка корзины после успешного создания заказа
+    cartItems.value = [];
+
+    return data;
+  } catch (error) {
+    console.error('Error creating order:', error);
+  } finally {
+    isCreating.value = false;
+  }
+};
 </script>
