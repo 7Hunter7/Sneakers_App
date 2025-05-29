@@ -2,6 +2,8 @@
   <div class="fixed top-0 left-0 w-full h-full bg-black/70 z-10">
     <div class="fixed top-0 right-0 w-96 h-full bg-white z-20 p-8">
       <DrawerHead />
+      <InfoBlock v-if="!totalPrice" title="Корзина пустая"
+        description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" imageUrl="package-icon.png" />
       <CartItemList />
       <div class="mt-8 flex flex-col gap-4">
         <div class="flex gap-2">
@@ -25,6 +27,7 @@
 
 <script setup>
 import DrawerHead from './DrawerHead.vue';
+import InfoBlock from './InfoBlock.vue';
 import CartItemList from './CartItemList.vue';
 
 defineProps({
