@@ -1,5 +1,4 @@
 <script setup>
-
 import { computed, provide, ref, watch } from 'vue';
 import DrawerComponent from './components/DrawerComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
@@ -41,7 +40,6 @@ watch(cartItems, () => {
   deep: true
 });
 
-
 provide('cart', {
   cartItems,
   openDrawer,
@@ -55,7 +53,6 @@ provide('cart', {
   <DrawerComponent v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" />
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
     <HeaderComponent @open-drawer="openDrawer" :total-price="totalPrice" />
-
     <main class="p-10">
       <RouterView />
     </main>
