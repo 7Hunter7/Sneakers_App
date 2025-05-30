@@ -11,7 +11,7 @@
 5. Оформление заказа (эмуляция)
 6. Сохранение корзины в `localStorage`
 7. REST API через [Mokky.dev](https://mokky.dev/)
-8. Анимации элементов с [Auto Animate](https://formkit.com/essentials/auto-animate)
+8. Анимации элементов с [Auto Animate](https://auto-animate.formkit.com/)
 
 
 ## 🛠️ Используемые технологии
@@ -22,7 +22,7 @@
 - [Vue Router](https://router.vuejs.org/)
 - [Axios](https://axios-http.com/)
 - [Lodash.debounce](https://lodash.com/docs/4.17.15#debounce)
-- [FormKit Auto Animate](https://formkit.com/essentials/auto-animate)
+- [FormKit Auto Animate](https://auto-animate.formkit.com/)
 
 
 ## 📂 Структура проекта
